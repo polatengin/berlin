@@ -20,7 +20,7 @@ angular.module('arcelik', ['ionic'])
       }
     });
   })
-  .controller('index', function ($scope, $http, $ionicPosition, $ionicScrollDelegate) {
+  .controller('index', function ($scope, $http, $location, $ionicScrollDelegate) {
 
         moment.locale('tr');
 
@@ -30,6 +30,10 @@ angular.module('arcelik', ['ionic'])
         }).then(function (response) {
           $scope.moment = moment;
           $scope.list = response.data;
+
+          $location.hash('menu-' + moment(new Date()).format('DD-MM-YYYY'));
+
+          $ionicScrollDelegate.anchorScroll();
         });
 
         $scope.getMenuImageUrl = function(menu) {
@@ -46,4 +50,4 @@ angular.module('arcelik', ['ionic'])
           return 'http://arcelikcayirovayemekmenusu.azurewebsites.net/' + imageName + '.png';
         };
 
-  })
+  });

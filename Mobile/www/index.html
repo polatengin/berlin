@@ -17,9 +17,10 @@
       </ion-header-bar>
       <ion-content>
         <div class="card" ng-repeat="item in list">
+            <a id="menu-{{ moment(item.Date).format('DD-MM-YYYY') }}"></a>
             <div class="item item-divider">{{ moment(item.Date).format('DD.MM.YYYY, dddd') }}</div>
             <div class="item item-avatar item-text-wrap" ng-repeat="menu in item.Menu">
-              <img ng-src="{{ getMenuImageUrl(menu) }}" />
+              <img ng-src="{{ getMenuImageUrl(menu) }}" onError="this.onerror=null;this.src='/img/yok.jpg';" />
               {{ menu }}
             </div>
         </div>
