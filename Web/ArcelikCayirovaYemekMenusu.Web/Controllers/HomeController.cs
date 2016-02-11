@@ -52,11 +52,7 @@ namespace ArcelikCayirovaYemekMenusu.Web.Controllers
                 var list = menuList[(iLoop * 2) + 1].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 foreach (var item in list)
                 {
-                    if (Gunler.Contains(item))
-                    {
-                        menu.DayName = item.Trim();
-                    }
-                    else
+                    if (!Gunler.Contains(item))
                     {
                         menu.Menu.Add(item.Trim());
                     }
@@ -75,7 +71,7 @@ namespace ArcelikCayirovaYemekMenusu.Web.Controllers
 
         public ActionResult API(DateTime? date)
         {
-            var tarih = date.HasValue ? date.Value : DateTime.Today;
+            var tarih = date.HasValue ? date.Value : DateTime.UtcNow;
 
             var menuList = new List<GunlukMenu>();
 
@@ -86,7 +82,7 @@ namespace ArcelikCayirovaYemekMenusu.Web.Controllers
                 menuList.Add(JsonConvert.DeserializeObject<GunlukMenu>(menu));
             }
 
-            return Json(menuList);
+            return Json(menuList, JsonRequestBehavior.AllowGet);
         }
     }
 }

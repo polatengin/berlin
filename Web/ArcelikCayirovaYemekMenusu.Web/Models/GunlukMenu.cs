@@ -10,7 +10,5 @@ namespace ArcelikCayirovaYemekMenusu.Web.Models
         public DateTime Date { get; set; }
 
         public List<string> Menu { get; set; }
-
-        public string DayName { get; set; }
     }
 }

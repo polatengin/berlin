@@ -1,24 +1,49 @@
-// Ionic Starter App
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+/* global StatusBar */
+/* global cordova */
+/* global angular */
+angular.module('arcelik', ['ionic'])
+  .run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
+      if (window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
+  })
+  .controller('index', function ($scope, $http, $ionicPosition, $ionicScrollDelegate) {
+
+        moment.locale('tr');
+
+        $http({
+            method: 'POST',
+            url: 'http://arcelikcayirovayemekmenusu.azurewebsites.net/Home/Api'
+        }).then(function (response) {
+          $scope.moment = moment;
+          $scope.list = response.data;
+        });
+
+        $scope.getMenuImageUrl = function(menu) {
+          var imageName = menu
+                            .toLowerCase()
+                            .replaceAll('ı', 'i')
+                            .replaceAll('ç', 'c')
+                            .replaceAll('ş', 's')
+                            .replaceAll('ü', 'u')
+                            .replaceAll('ö', 'o')
+                            .replaceAll('ğ', 'g')
+                            .replaceAll(' ', '');
+
+          return 'http://arcelikcayirovayemekmenusu.azurewebsites.net/' + imageName + '.png';
+        };
+
+  })

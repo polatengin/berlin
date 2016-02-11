@@ -108,8 +108,14 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Home\Index.cshtml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Home\Menu.cshtml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\arcelikcayirovayemekmenusu - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\arcelikcayirovayemekmenusu - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
